@@ -13,7 +13,7 @@ int main(void)
 {
 	/*模块初始化*/
 	OLED_Init(); // OLED初始化
-	OLED_ShowString(1, 1, "OK");
+	OLED_ShowChar(1, 1, 'O');
 	PWM_Init();	 // PWM初始化
 
 	while (1)

@@ -270,27 +270,12 @@ void OLED_ShowBinNum(uint8_t Line, uint8_t Column, uint32_t Number, uint8_t Leng
   */
 void OLED_Init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStructure;
-	// 配置 PB6 为推挽输出并设置为低电平（GND）
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-    GPIO_ResetBits(GPIOB, GPIO_Pin_6);
-
-    // 配置 PB7 为推挽输出并设置为高电平（VCC）
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-    GPIO_SetBits(GPIOB, GPIO_Pin_7);
-
 	uint32_t i, j;
 	
 	for (i = 0; i < 1000; i++)			//上电延时
 	{
 		for (j = 0; j < 1000; j++);
 	}
-
-	
 	
 	OLED_I2C_Init();			//端口初始化
 	
@@ -333,5 +318,4 @@ void OLED_Init(void)
 	OLED_WriteCommand(0xAF);	//开启显示
 		
 	OLED_Clear();				//OLED清屏
-
 }
