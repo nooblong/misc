@@ -719,6 +719,26 @@
               <FileType>5</FileType>
               <FilePath>.\hardware\PWM.h</FilePath>
             </File>
+            <File>
+              <FileName>Servo.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\Servo.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Servo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\Servo.h</FilePath>
+            </File>
+            <File>
+              <FileName>Key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\Key.h</FilePath>
+            </File>
+            <File>
+              <FileName>Key.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\Key.cpp</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

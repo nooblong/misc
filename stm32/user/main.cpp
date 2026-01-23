@@ -5,28 +5,33 @@ extern "C"
 #include "OLED.h"
 }
 
-#include "PWM.h"
+#include "Servo.h"
+#include "Key.h"
 
-uint8_t i; // 定义for循环的变量
+int key;
+float angle = 0;
 
 int main(void)
 {
 	/*模块初始化*/
 	OLED_Init(); // OLED初始化
-	OLED_ShowChar(1, 1, 'O');
-	PWM_Init();	 // PWM初始化
-
+	Servo_Init();		// 舵机初始化
+	Servo_SetAngle(90); // 设置舵机角度为90度
+	Key_Init();		// 按键初始化
 	while (1)
 	{
-		for (i = 0; i <= 100; i++)
+		key = Key_GetNum(); // 获取按键值
+		if (key == 1)
 		{
-			PWM_SetCompare1(i); // 依次将定时器的CCR寄存器设置为0~100，PWM占空比逐渐增大，LED逐渐变亮
-			Delay_ms(10);		// 延时10ms
+			angle += 30;
+			if (angle > 180)
+			{
+				angle = 0;
+			}
+			
 		}
-		for (i = 0; i <= 100; i++)
-		{
-			PWM_SetCompare1(100 - i); // 依次将定时器的CCR寄存器设置为100~0，PWM占空比逐渐减小，LED逐渐变暗
-			Delay_ms(10);			  // 延时10ms
-		}
+		Servo_SetAngle(angle); // 设置舵机角度
+		OLED_ShowString(1, 1, "Angle:");
+		OLED_ShowNum(1, 7, angle, 3);
 	}
 }
