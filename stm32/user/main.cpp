@@ -16,7 +16,6 @@ int main(void)
 	/*模块初始化*/
 	OLED_Init(); // OLED初始化
 	Servo_Init();		// 舵机初始化
-	Servo_SetAngle(90); // 设置舵机角度为90度
 	Key_Init();		// 按键初始化
 	while (1)
 	{
