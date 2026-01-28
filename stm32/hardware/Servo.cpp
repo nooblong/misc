@@ -10,5 +10,5 @@ void Servo_Init(void)
 void Servo_SetAngle(int angle)
 {
     int pulseWidth = ((angle * 2000) / 180) + 500; // 计算对应的脉宽，单位为微秒
-    PWM_SetCompare1(pulseWidth); // 设置PWM比较值
+    PWM_SetCompare3(pulseWidth); // 设置PWM比较值
 }
