@@ -11,16 +11,30 @@ extern "C"
 
 int key;
 float angle = 0;
+float speed = 0;
 
 int main(void)
 {
 	OLED_Init(); // OLED初始化
 
 	Motor_Init(); // 电机初始化
+	Key_Init();   // 按键初始化
 	Motor_SetSpeed(50); // 设置电机速度为50%
+	OLED_ShowString(1, 1, "Running");
 	while (1)
 	{
-		
+		key = Key_GetNum(); // 获取按键值
+		OLED_ShowString(3, 1, "Key:");
+		OLED_ShowNum(3, 5, key, 1);
+		if (key == 1)
+		{
+			speed += 20;
+			if (speed > 100)
+			{
+				speed = -100;
+			}
+		}
+		Motor_SetSpeed(speed); // 设置电机速度
 	}
 	
 
