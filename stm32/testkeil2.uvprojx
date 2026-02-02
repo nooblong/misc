@@ -749,6 +749,16 @@
               <FileType>5</FileType>
               <FilePath>.\hardware\motor.h</FilePath>
             </File>
+            <File>
+              <FileName>IC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\IC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>IC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\IC.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

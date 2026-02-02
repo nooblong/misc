@@ -19,7 +19,7 @@ void PWM_Init(void)
 	/*GPIO初始化*/
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure); // 将PA0引脚初始化为复用推挽输出
 										   // 受外设控制的引脚，均需要配置为复用模式
@@ -28,11 +28,11 @@ void PWM_Init(void)
 	TIM_InternalClockConfig(TIM2); // 选择TIM2为内部时钟，若不调用此函数，TIM默认也为内部时钟
 
 	/*时基单元初始化*/
-	// 1khz, 50%, 分辨率1%
+	// 100000hz, 50%, 分辨率10%, 72000000Hz 
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;				// 定义结构体变量
 	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;		// 时钟分频，选择不分频，此参数用于配置滤波器时钟，不影响时基单元功能
 	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up; // 计数器模式，选择向上计数
-	TIM_TimeBaseInitStructure.TIM_Period = 20000 - 1;					// 计数周期，即ARR的值 100
+	TIM_TimeBaseInitStructure.TIM_Period = 10 - 1;					// 计数周期，即ARR的值 9
 	TIM_TimeBaseInitStructure.TIM_Prescaler = 72 - 1;				// 预分频器，即PSC的值 10 0000
 	TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;			// 重复计数器，高级定时器才会用到
 	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStructure);				// 将结构体变量交给TIM_TimeBaseInit，配置TIM2的时基单元
@@ -56,12 +56,25 @@ void PWM_Init(void)
 
 /**
  * 函    数：PWM设置CCR
- * 参    数：Compare 要写入的CCR的值，范围：0~100
+ * 参    数：Compare 要写入的CCR的值，范围：0~1000000
  * 返 回 值：无
  * 注意事项：CCR和ARR共同决定占空比，此函数仅设置CCR的值，并不直接是占空比
  *           占空比Duty = CCR / (ARR + 1)
  */
+void PWM_SetCompare1(int Compare)
+{
+	TIM_SetCompare1(TIM2, Compare); // 设置CCR1的值
+}
+void PWM_SetCompare2(int Compare)
+{
+	TIM_SetCompare2(TIM2, Compare); // 设置CCR1的值
+}
 void PWM_SetCompare3(int Compare)
 {
 	TIM_SetCompare3(TIM2, Compare); // 设置CCR1的值
+}
+
+void PWM_SetPrescaler(int Prescaler)
+{
+	TIM_PrescalerConfig(TIM2, Prescaler, TIM_PSCReloadMode_Immediate);
 }

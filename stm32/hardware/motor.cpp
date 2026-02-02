@@ -19,20 +19,16 @@ void Motor_Init(void)
 
 void Motor_SetSpeed(int speed)
 {
-    if (speed > 100) speed = 100;
-    if (speed < -100) speed = -100;
-    OLED_ShowString(2, 1, "Speed:");
-    OLED_ShowSignedNum(2, 8, speed, 3);
     if (speed >= 0)
     {
         GPIO_SetBits(GPIOA, GPIO_Pin_4);   // IN1 高电平
         GPIO_ResetBits(GPIOA, GPIO_Pin_5); // IN2 低电平
-        PWM_SetCompare3(speed*200);       // 设置PWM占空比
+        PWM_SetCompare3(speed);       // 设置PWM占空比
     }
     else
     {
         GPIO_ResetBits(GPIOA, GPIO_Pin_4); // IN1 低电平
         GPIO_SetBits(GPIOA, GPIO_Pin_5);   // IN2 高电平
-        PWM_SetCompare3(-speed*200);      // 设置PWM占空比
+        PWM_SetCompare3(-speed);      // 设置PWM占空比
     }
 }
