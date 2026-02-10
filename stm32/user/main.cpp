@@ -11,10 +11,16 @@ extern "C"
 #include "PWM.h"
 #include "IC.h"
 #include "Encoder.h"
+#include "AD.h"
 
 int key;
 float angle = 0;
 float speed = 0;
+float voltage = 0;
+int ad0 = 0;
+int ad1 = 0;
+int ad2 = 0;
+int ad3 = 0;
 
 int main(void)
 {
@@ -24,13 +30,27 @@ int main(void)
 	PWM_Init(); // PWM初始化
 	IC_Init(); // 输入捕获初始化
 	Encoder_Init(); // 编码器初始化
-	OLED_ShowString(1, 1, "Running");
+	AD_Init(); // AD初始化
 
 	while (1)
 	{
-		OLED_ShowString(2, 1, "CNT:");
-		OLED_ShowNum(2, 5, Encoder_GetCount(), 5);
+		OLED_ShowString(1, 1, "ad0:");
+		OLED_ShowNum(1, 5, AD_GetValue(ADC_Channel_0), 4);
+		voltage = AD_GetValue(ADC_Channel_0) * 3.3 / 4095;
+		
+		OLED_ShowString(2, 1, "ad1:");
+		OLED_ShowNum(2, 5, AD_GetValue(ADC_Channel_1), 4);
+		OLED_ShowString(3, 1, "ad2:");
+		OLED_ShowNum(3, 5, AD_GetValue(ADC_Channel_2), 4);
+		OLED_ShowString(4, 1, "ad3:");
+		OLED_ShowNum(4, 5, AD_GetValue(ADC_Channel_3), 4);
 	}
+	
+	// while (1)
+	// {
+	// 	OLED_ShowString(2, 1, "CNT:");
+	// 	OLED_ShowNum(2, 5, Encoder_GetCount(), 5);
+	// }
 	
 
 

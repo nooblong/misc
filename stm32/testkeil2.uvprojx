@@ -769,6 +769,16 @@
               <FileType>5</FileType>
               <FilePath>.\hardware\Encoder.h</FilePath>
             </File>
+            <File>
+              <FileName>AD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\AD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>AD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\AD.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
