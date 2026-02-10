@@ -759,6 +759,16 @@
               <FileType>5</FileType>
               <FilePath>.\hardware\IC.h</FilePath>
             </File>
+            <File>
+              <FileName>Encoder.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\hardware\Encoder.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\Encoder.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
