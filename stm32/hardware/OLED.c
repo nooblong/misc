@@ -1,5 +1,6 @@
 #include "stm32f10x.h"
 #include "OLED_Font.h"
+#include "Delay.h"
 
 /*引脚配置*/
 #define OLED_W_SCL(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_8, (BitAction)(x))
@@ -11,7 +12,28 @@ void OLED_I2C_Init(void)
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
- 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
+ 	
+
+
+    /* 使能 GPIOB 时钟 */
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+
+    /* 配置 PB6 PB7 为推挽输出 */
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+    /* PB6 输出低电平 */
+    GPIO_ResetBits(GPIOB, GPIO_Pin_6);
+
+    /* PB7 输出高电平 */
+    GPIO_SetBits(GPIOB, GPIO_Pin_7);
+
+	Delay_ms(100);	//等待OLED稳定
+
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
  	GPIO_Init(GPIOB, &GPIO_InitStructure);
