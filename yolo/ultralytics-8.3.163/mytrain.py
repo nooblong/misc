@@ -4,7 +4,7 @@ if __name__ == "__main__":
     model = YOLO(r"yolo11n.pt")
 
     model.train(
-        data=r"coco128.yaml",
+        data=r"coco8.yaml",
         epochs=10,
         batch=16,
         imgsz=640,
